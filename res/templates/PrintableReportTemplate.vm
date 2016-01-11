@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+	<title>VitaReminder</title>
+	
+	<style>
+		
+		h1, h2, h3, p
+		{
+			text-align: center;
+		}
+		
+		table, th, td
+		{
+			border: 1px solid black;
+			text-align: center;
+			font-size: 8px;
+		}
+		
+		table
+		{
+			width: 100%;
+		}		
+	
+	</style>
+	
+</head>
+
+<body>
+
+	<h1>VitaReminder Report</h1>
+	
+	#foreach ($regimen in $regimensList)
+           
+        <br>
+
+        <table>
+        
+        	<tr>
+        		<td colspan="8"><b>$regimen.regimenName</b></td>
+        	</tr>
+        	
+        	<tr>
+        		<td colspan="8"><i>$regimen.regimenNotes</i></td>
+        	</tr>
+        
+        	<tr>
+        		<th nowrap>Supplement Name</th>
+				<th nowrap>Amount</th>
+				<th nowrap>Units</th>
+				<th nowrap>Take At</th>	
+				<th nowrap>E-Mail</th>
+				<th nowrap>Text</th>
+				<th nowrap>Voice</th>
+				<th nowrap>Notes</th>
+			</tr>
+			
+			#foreach ($supplement in $regimen.supplements)
+			
+				<tr>
+					<td>$supplement.suppName</td>
+					<td>$supplement.getFormattedAmount()</td>
+					<td>$supplement.suppUnits</td>
+					<td>$supplement.getFormattedTime()</td>
+					
+					#if ($supplement.emailEnabled)
+						<td>x</td>
+					#else
+						<td></td>
+					#end
+					
+					#if ($supplement.textEnabled)
+						<td>x</td>
+					#else
+						<td></td>
+					#end
+					
+					#if ($supplement.voiceEnabled)
+						<td>x</td>
+					#else
+						<td></td>
+					#end
+					
+					<td><i>$supplement.suppNotes</i></td>
+				</tr>
+			
+			#end
+        
+        </table>
+        
+        <br>
+    
+  	#end
+  	
+</body>
+  	
+</html>

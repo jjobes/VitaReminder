@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+</head>
+
+<body>
+	<div style="margin:0 auto;width:50%;border:1px solid #CFCFCF;border-radius:6px;background-color:#EFEFEF;text-align:center;">
+	
+	    <div style="padding:5px;background-color:#E6E6E6;">
+	    
+	        <img src="http://s27.postimg.org/6wnm0se9r/cross_icon_32x32.png" style="vertical-align:middle;"/>
+	        
+	        <p style="display:inline-block;vertical-align:middle;"><b>VitaReminder</b></p>
+	        
+	    </div>
+	    
+	    <div style="padding:20px;">
+	    
+	        $message
+	        
+	    </div>
+	    
+	</div>               
+</body>
+  	
+</html>

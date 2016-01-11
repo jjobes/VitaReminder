@@ -1,0 +1,38 @@
+<html>
+
+    <head>
+		<style>		
+		    body
+		    {
+		        text-align:center;
+		    }
+		    		
+			table, td
+			{
+				border:1px solid black;
+			}			
+		</style>
+    </head>
+    
+    <body>
+        <div>
+		    <h2>$title</h2>
+		    <br>
+		    <br>	
+		    
+		    <table>
+		    #foreach ($row in $systemProperties)
+		        <tr>
+		    	#foreach ($col in $row)
+		    		<td>$col</td>
+		    	#end
+		    	</tr>	    
+		    #end
+		    </table>
+		    
+		    <br>
+		    <br>	    
+	    </div>
+    </body>
+    
+</html>

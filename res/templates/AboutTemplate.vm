@@ -1,0 +1,62 @@
+<html>
+
+    <head>
+		<style>		
+		
+		    body
+		    {
+		    	background-color:#d6d9df;
+		        text-align:center;
+		    }
+		    		
+			table, td
+			{
+				border:1px solid black;
+			}
+					
+		</style>
+    </head>
+
+    <body>
+        <div>
+        
+        	<br>
+
+		    $message1
+		    
+		    <br>
+		    <br>
+		    
+		    $message2
+		    
+		    <br>
+		    <br>
+		    
+		    <table>
+		    
+		    #foreach ($row in $technologies)
+		        <tr>	
+		    	#foreach ($col in $row)
+		    		<td>$col</td>
+		    	#end
+		    	</tr>	    
+		    #end
+		    
+		    </table>
+		    
+		    <br>
+		    <br>
+		    
+		    Developed by: $programmer
+		    
+		    <br>
+		    <br>
+		    
+		    Copyright (c) $year
+		    
+		    <br>
+	    
+	    </div>
+    </body>
+
+</html>

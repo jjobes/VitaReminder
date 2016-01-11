@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="VitaReminder" default="create_runnable_jar" basedir=".">
+
+	<description>Creates a runnable Jar with libraries in sub-folders.</description>
+
+	<property name="app.name" value="VitaReminder" />
+    <property name="build.dir" value="bin" />
+	<property name="src.dir" value="src" />
+	<property name="dist.dir" value="dist" />
+
+	<path id="compile-classpath">
+
+		<fileset dir="${basedir}/lib" includes="**/*.jar" />
+
+	</path>
+
+	<!-- Delete all of the files and directories -->
+	<target name="clean">
+
+		<delete dir="${build.dir}" />
+		<delete dir="${dist.dir}/db" />
+		<delete dir="${dist.dir}/doc" />
+		<delete dir="${dist.dir}/lib" />
+		<delete dir="${dist.dir}/logs" />
+		<delete dir="${dist.dir}/res" />
+		<delete dir="${dist.dir}/src" />
+		<delete dir="${dist.dir}/user" />
+		<delete file="${dist.dir}/README.md" />
+		<delete file="${dist.dir}/VitaReminder.jar" />
+
+	</target>
+
+	<!-- Create the directory structure -->
+	<target name="init" depends="clean">
+
+		<tstamp />
+
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.dir}/com/vitareminder/ui/resources/icons" />
+		<mkdir dir="${build.dir}/com/vitareminder/ui/resources/images" />
+
+		<mkdir dir="${dist.dir}/db" />
+		<mkdir dir="${dist.dir}/doc" />
+		<mkdir dir="${dist.dir}/lib/h2" />
+		<mkdir dir="${dist.dir}/lib/javamail" />
+		<mkdir dir="${dist.dir}/lib/quartz" />
+		<mkdir dir="${dist.dir}/lib/tropo" />
+		<mkdir dir="${dist.dir}/lib/tropo/dependencies" />
+		<mkdir dir="${dist.dir}/lib/velocity" />
+		<mkdir dir="${dist.dir}/lib/poi" />
+		<mkdir dir="${dist.dir}/logs" />
+		<mkdir dir="${dist.dir}/res/help" />
+		<mkdir dir="${dist.dir}/res/log4j" />
+		<mkdir dir="${dist.dir}/res/quartz" />
+		<mkdir dir="${dist.dir}/res/templates" />
+		<mkdir dir="${dist.dir}/src" />
+		<mkdir dir="${dist.dir}/user/data" />
+
+	</target>
+
+	<!-- Compile the source and place the class files in the build directory -->
+	<target name="compile" depends="init">
+
+	    <javac destdir="${build.dir}" includeantruntime="false">
+			<src path="${src.dir}" />
+			<classpath refid="compile-classpath" />
+		</javac>
+
+	</target>
+
+	<!-- Generate the Javadocs -->
+    <target name="doc" depends="compile">
+
+        <javadoc access="public" author="true" classpath="lib/quartz/log4j-1.2.16.jar;lib/poi/poi-ooxml-3.10-FINAL-20140208.jar;lib/tropo/dependencies/commons-beanutils-1.8.1.jar;lib/velocity/velocity-1.7-dep.jar;lib/tropo/tropo-webapi-java-0.3.jar;lib/tropo/dependencies/commons-httpclient-3.1.jar;lib/poi/poi-3.10-FINAL-20140208.jar;lib/javamail/mail.jar;lib/quartz/slf4j-log4j12-1.6.6.jar;lib/velocity/velocity-1.7.jar;lib/tropo/dependencies/json-lib-2.4-jdk15.jar;lib/quartz/c3p0-0.9.1.1.jar;lib/tropo/dependencies/commons-lang-2.5.jar;lib/poi/xmlbeans-2.3.0.jar;lib/poi/poi-ooxml-schemas-3.10-FINAL-20140208.jar;lib/tropo/dependencies/commons-codec-1.3.jar;lib/tropo/dependencies/ezmorph-1.0.6.jar;lib/tropo/dependencies/commons-collections-3.2.1.jar;lib/tropo/dependencies/commons-logging-1.1.1.jar;lib/h2/h2-1.3.174.jar;lib/quartz/slf4j-api-1.6.6.jar;lib/poi/dom4j-1.6.1.jar;lib/quartz/quartz-2.2.1.jar;lib/quartz/quartz-jobs-2.2.1.jar" destdir="doc" doctitle="VitaReminder Documentation" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="com.vitareminder.dao.impl,com.vitareminder.business,com.vitareminder.reminders,com.vitareminder.ui,com.vitareminder.db,com.vitareminder.ui.model,com.vitareminder.dao,com.vitareminder.reports,com.vitareminder" source="1.7" sourcepath="src" splitindex="true" use="true" version="true"/>
+
+    </target>
+
+	<!-- Generate the Javadocs and copy them to the dist directory -->
+	<target name="doc-dist" depends="doc">
+
+		<copy todir="${dist.dir}/doc">
+			<fileset dir="${basedir}/doc" />
+		</copy>
+
+	</target>
+
+	<!-- Copy the necessary files and folders to the dist directory -->
+	<target name="copy" depends="compile">
+
+		<copy todir="${dist.dir}/bin">
+			<fileset dir="${basedir}/bin" />
+		</copy>
+
+		<copy todir="${basedir}/bin/com/vitareminder/ui/resources/icons">
+			<fileset dir="${basedir}/src/com/vitareminder/ui/resources/icons" />
+		</copy>
+
+		<copy todir="${basedir}/bin/com/vitareminder/ui/resources/images">
+			<fileset dir="${basedir}/src/com/vitareminder/ui/resources/images" />
+		</copy>
+
+		<copy todir="${dist.dir}/bin/com/vitareminder/ui/resources/icons">
+			<fileset dir="${basedir}/src/com/vitareminder/ui/resources/icons" />
+		</copy>
+
+		<copy todir="${dist.dir}/bin/com/vitareminder/ui/resources/images">
+			<fileset dir="${basedir}/src/com/vitareminder/ui/resources/images" />
+		</copy>
+
+    	<copy file="${basedir}/db/vitareminder_db.h2.db" todir="${dist.dir}/db" />
+		<copy file="${basedir}/db/VitaReminder_Restore.sql" todir="${dist.dir}/db" />
+    	<copy file="${basedir}/db/VitaReminder_Restore.vrdata" todir="${dist.dir}/db" />
+
+		<copy file="${basedir}/lib/h2/h2-1.3.174.jar" todir="${dist.dir}/lib/h2" />
+
+    	<copy file="${basedir}/lib/javamail/mail.jar" todir="${dist.dir}/lib/javamail" />
+
+        <copy file="${basedir}/lib/quartz/c3p0-0.9.1.1.jar" todir="${dist.dir}/lib/quartz" />
+        <copy file="${basedir}/lib/quartz/log4j-1.2.16.jar" todir="${dist.dir}/lib/quartz" />
+        <copy file="${basedir}/lib/quartz/quartz-2.2.1.jar" todir="${dist.dir}/lib/quartz" />
+        <copy file="${basedir}/lib/quartz/quartz-jobs-2.2.1.jar" todir="${dist.dir}/lib/quartz" />
+        <copy file="${basedir}/lib/quartz/slf4j-api-1.6.6.jar" todir="${dist.dir}/lib/quartz" />
+        <copy file="${basedir}/lib/quartz/slf4j-log4j12-1.6.6.jar" todir="${dist.dir}/lib/quartz" />
+
+        <copy file="${basedir}/lib/tropo/tropo-webapi-java-0.3.jar" todir="${dist.dir}/lib/tropo" />
+        <copy file="${basedir}/lib/tropo/dependencies/commons-beanutils-1.8.1.jar" todir="${dist.dir}/lib/tropo/dependencies" />
+        <copy file="${basedir}/lib/tropo/dependencies/commons-codec-1.3.jar" todir="${dist.dir}/lib/tropo/dependencies" />
+        <copy file="${basedir}/lib/tropo/dependencies/commons-collections-3.2.1.jar" todir="${dist.dir}/lib/tropo/dependencies" />
+        <copy file="${basedir}/lib/tropo/dependencies/commons-httpclient-3.1.jar" todir="${dist.dir}/lib/tropo/dependencies" />
+        <copy file="${basedir}/lib/tropo/dependencies/commons-lang-2.5.jar" todir="${dist.dir}/lib/tropo/dependencies" />
+        <copy file="${basedir}/lib/tropo/dependencies/commons-logging-1.1.1.jar" todir="${dist.dir}/lib/tropo/dependencies" />
+        <copy file="${basedir}/lib/tropo/dependencies/ezmorph-1.0.6.jar" todir="${dist.dir}/lib/tropo/dependencies" />
+        <copy file="${basedir}/lib/tropo/dependencies/json-lib-2.4-jdk15.jar" todir="${dist.dir}/lib/tropo/dependencies" />
+
+        <copy file="${basedir}/lib/velocity/velocity-1.7-dep.jar" todir="${dist.dir}/lib/velocity" />
+        <copy file="${basedir}/lib/velocity/velocity-1.7.jar" todir="${dist.dir}/lib/velocity" />
+
+        <copy file="${basedir}/lib/poi/dom4j-1.6.1.jar" todir="${dist.dir}/lib/poi" />
+        <copy file="${basedir}/lib/poi/poi-3.10-FINAL-20140208.jar" todir="${dist.dir}/lib/poi" />
+        <copy file="${basedir}/lib/poi/poi-ooxml-3.10-FINAL-20140208.jar" todir="${dist.dir}/lib/poi" />
+        <copy file="${basedir}/lib/poi/poi-ooxml-schemas-3.10-FINAL-20140208.jar" todir="${dist.dir}/lib/poi" />
+        <copy file="${basedir}/lib/poi/xmlbeans-2.3.0.jar" todir="${dist.dir}/lib/poi" />
+
+		<copy todir="${dist.dir}/res/help">
+			<fileset dir="${basedir}/res/help" />
+		</copy>
+
+    	<copy file="${basedir}/res/log4j/log4j.properties" todir="${dist.dir}/res/log4j" />
+
+    	<copy file="${basedir}/res/quartz/quartz.properties" todir="${dist.dir}/res/quartz" />
+
+		<copy todir="${dist.dir}/res/templates">
+			<fileset dir="${basedir}/res/templates" />
+		</copy>
+
+		<copy todir="${dist.dir}/src">
+			<fileset dir="${basedir}/src" />
+		</copy>
+
+		<copy todir="${dist.dir}/user/data">
+			<fileset dir="${basedir}/user/data" />
+		</copy>
+
+    	<copy file="${basedir}/README.md" todir="${dist.dir}" />
+
+	</target>
+
+	<!-- Create a runnable jar file in the dist directory -->
+    <target name="create_runnable_jar" depends="copy">
+
+        <jar destfile="${dist.dir}/${app.name}-${DSTAMP}.jar">
+            <manifest>
+                <attribute name="Main-Class" value="com.vitareminder.VitaReminder" />
+                <attribute name="Class-Path" value=". lib/h2/h2-1.3.174.jar lib/javamail/mail.jar lib/quartz/c3p0-0.9.1.1.jar lib/quartz/log4j-1.2.16.jar lib/quartz/quartz-2.2.1.jar lib/quartz/quartz-jobs-2.2.1.jar lib/quartz/slf4j-api-1.6.6.jar lib/quartz/slf4j-log4j12-1.6.6.jar lib/tropo/tropo-webapi-java-0.3.jar lib/tropo/dependencies/commons-beanutils-1.8.1.jar lib/tropo/dependencies/commons-codec-1.3.jar lib/tropo/dependencies/commons-collections-3.2.1.jar lib/tropo/dependencies/commons-httpclient-3.1.jar lib/tropo/dependencies/commons-lang-2.5.jar lib/tropo/dependencies/commons-logging-1.1.1.jar lib/tropo/dependencies/ezmorph-1.0.6.jar lib/tropo/dependencies/json-lib-2.4-jdk15.jar lib/velocity/velocity-1.7-dep.jar lib/velocity/velocity-1.7.jar lib/poi/dom4j-1.6.1.jar lib/poi/poi-3.10-FINAL-20140208.jar lib/poi/poi-ooxml-3.10-FINAL-20140208.jar lib/poi/poi-ooxml-schemas-3.10-FINAL-20140208.jar lib/poi/xmlbeans-2.3.0.jar" />
+				<attribute name="SplashScreen-Image" value="com/vitareminder/ui/resources/images/splash_screen.png" />
+			</manifest>
+            <fileset dir="${dist.dir}/bin" />
+            <fileset dir="${dist.dir}/res/log4j" />
+        </jar>
+
+    </target>
+
+	<target name="help">
+
+		<echo message="ant          - Creates a runnable jar in the dist directory." />
+		<echo message="ant all      - Creates a runnable jar in the dist directory with Javadocs." />
+		<echo message="ant doc      - Generates new Javadocs and places them in the current doc directory." />
+		<echo message="ant doc-dist - Generates new Javadocs and places them in the current doc directory and copies them to the dist directory." />
+
+	</target>
+
+	<target name="all" depends="create_runnable_jar, doc-dist">
+
+		<description>Create a runnable jar with Javadocs</description>
+
+	</target>
+
+</project>

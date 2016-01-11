@@ -1,0 +1,48 @@
+
+VitaReminder
+
+
+Copyright 2014 Jason Jobes
+
+
+
+
+This document describes the third-party, open-source libraries that VitaReminder uses,
+in addition to the licenses under which they are used.
+
+
+This product includes the following software libraries:
+
+
+
+Apache Log4j
+
+Apache POI
+
+Apache Velocity
+Quartz Scheduler, developed by Terracotta, Inc.
+
+
+
+These libraries are used and distributed under the Apache License,
+ Version 2.0.
+
+
+
+An original copy of this license agreement can be found at: 
+
+http://www.apache.org/licenses/LICENSE-2.0.html
+
+
+
+This product includes H2 database engine, which is being used and distributed
+under the (unmodified) EPL 1.0 (Eclipse Public License).
+
+An original copy of this license agreement can be found at: 
+
+http://www.h2database.com/html/license.html
+
+
+
+This product includes the Tropo Web API libraries, developed by Voxeo Corporation,
+which are being used and distributed under The MIT License.
