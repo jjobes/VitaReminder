@@ -45,23 +45,19 @@ Environment Variables
 This application uses the [Tropo](https://www.tropo.com/) API to send text messages and automated voice messages to your phone. You can sign up for a free Tropo developer account and then use the authentication tokens you are given to set the following environment variables on your local machine:
 
 ```
-TROPO_TOKEN_TEXT_MESSAGE
-```
+TROPO_TOKEN_TEXT_MESSAGE```
 
 ```
-TROPO_TOKEN_VOICE_MESSAGE
-```
+TROPO_TOKEN_VOICE_MESSAGE```
 
 These are referenced by ```TextMessage.java``` and ```VoiceMessage.java``` in ```com.vitareminder.reminders```. Read the comments for the ```send()``` method in each of those files for the scripts that you should use on Tropo's server.
 
 You must also set the following two environment variables on your local machine:
 
 ```
-VITAREMINDER_EMAIL_NAME
-```
+VITAREMINDER_EMAIL_NAME```
 
 ```
-VITAREMINDER_EMAIL_PASSWORD
-```
+VITAREMINDER_EMAIL_PASSWORD```
 
 Your e-mail reminders will be sent from this e-mail account. Note that ```VITAREMINDER_EMAIL_NAME``` should be your Gmail username. For example, if your Gmail address is ```joesmith@gmail.com```, you should set ```VITAREMINDER_EMAIL_NAME``` to ```joesmith```. These two environment variables are retrieved in ```ReminderManager.java``` in ```com.vitareminder.reminders```.
